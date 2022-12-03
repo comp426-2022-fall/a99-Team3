@@ -1,7 +1,7 @@
-//Require express
+// Require express
 const express = require("express")
 const app = express()
-// Require database SCRIPT file
+// Link to database.js
 var db = require("./database.js");
 
 // Require md5 MODULE
@@ -36,14 +36,22 @@ app.get("/app/", (req, res, next) => {
 });
 
 // Define other CRUD API endpoints using express.js and better-sqlite3
+
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/user", (req, res, next) => {
-
-	const stmt = db.prepare('INSERT INTO userinfo (user, pass, email, highestScore) VALUES (?, ?, ?, 0)').run(req.body.user, md5(req.body.pass), req.body.email);
-
-	res.status(201).json({"message": "1 record created: ID (201)"});
-
+	var data = {
+		user: req.body.user,
+		email: req.body.email,
+		pass: req.body.pass ? md5(req.body.pass) : null,
+		name: req.body.name, 
+		birthday: req.body.birthday,
+		score: req.body.score
+	}
+	const stmt = db.prepare('INSERT INTO userinfo (user, pass, email, name, birthday) VALUES (?, ?, ?, ?, ?, 0)');
+	const info = stmt.run(data.user, data.pass, data.email, data.name, data.birthday);
+	res.status(201).json({"message":info.changes+" record created: ID "+info.lastInsertRowid+" (201)"});
 })
+
 
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
 app.get("/app/users", (req, res) => {	
@@ -64,6 +72,7 @@ app.patch("/app/update/user", (req, res) => {
 	res.status(200).json({"message":`1 record updated: User ${req.body.user} (200)`});
 
 });
+
 // DELETE a single user (HTTP method DELETE) (the deleted user is the current user that is logged in)
 app.delete("/app/delete/user", (req, res) => {
 	const stmt = db.prepare("DELETE FROM userinfo WHERE user = ?").run(req.body.user);
@@ -77,7 +86,7 @@ app.patch("/app/recordscore/user", (req, res) =>  {
 	res.status(200).json({"message":`1 record updated: User ${req.body.user} (200)`});
 });
 
-// READ a single user (HTTP method GET) given the username and password. If the returned json is empty, than we don't have the user information in the database, so bad credential. Otherwise, logged in.
+// READ a single user (HTTP method GET) given the username and password.
 app.post("/app/login/user", (req, res) => {	
 
 	const stmt = db.prepare("SELECT * FROM userinfo WHERE user = ? AND pass = ?").get(req.body.user, md5(req.body.pass));
