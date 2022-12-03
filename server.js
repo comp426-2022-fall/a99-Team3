@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cors());
 
 // Set server port
-var HTTP_PORT = 5000;
+var HTTP_PORT = 8888;
 
 // Let the server listen to the port, if error exists, print the error
 app.listen(HTTP_PORT, () => {
