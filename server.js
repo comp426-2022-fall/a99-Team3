@@ -44,11 +44,10 @@ app.post("/app/new/user", (req, res, next) => {
 		email: req.body.email,
 		pass: req.body.pass ? md5(req.body.pass) : null,
 		name: req.body.name, 
-		birthday: req.body.birthday,
-		score: req.body.score
+		fortune_score: req.body.fortune_score
 	}
-	const stmt = db.prepare('INSERT INTO userinfo (user, pass, email, name, birthday) VALUES (?, ?, ?, ?, ?, 0)');
-	const info = stmt.run(data.user, data.pass, data.email, data.name, data.birthday);
+	const stmt = db.prepare('INSERT INTO userinfo (user, pass, email, name, fortune_score) VALUES (?, ?, ?, ?, 0)');
+const info = stmt.run(data.user, data.pass, data.email, data.name, data.fortune_score);
 	res.status(201).json({"message":info.changes+" record created: ID "+info.lastInsertRowid+" (201)"});
 })
 
