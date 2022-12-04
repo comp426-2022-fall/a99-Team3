@@ -153,13 +153,12 @@ const selfUser = document.getElementById("loginForm");
     const showData = document.getElementById("showData");
     showData.addEventListener("click", function(event){
         event.preventDefault();
-        if(loggedIn){
-            document.getElementById("profileData").innerHTML = `Username: ${current.user}, 
-            Email: ${current.email}, 
-            Name: ${current.name}`
-        } else {
-            alert("You must log in to see profile!")
-        }
+        document.getElementById("profileData").innerHTML = 
+        `
+        Username: ${current.user}, 
+        Email: ${current.email}
+        `
+        
     });
 
 });    

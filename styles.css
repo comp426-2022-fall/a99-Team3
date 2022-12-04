@@ -9,7 +9,7 @@ body{
 
 .full-screen-container {
     background-image: url("background\ image.jpg");
-    height: 100vh;
+    height: 200vh;
     width: 100vw;
     background-size: cover;
     background-position: center;
@@ -32,4 +32,51 @@ body{
     text-align: center;
     font-size:2rem;
     font-weight: normal;
+}
+
+.login-button{
+    background-color: #e8c8e5; 
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.fortune-screen-container{
+    background-image: url("fortune-cookie.png");
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.fortune-button{
+    background-color: #e8c8e5; 
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.fortune-container{
+    background-color: rgba(213, 169, 205, 0.3);
+    padding: 40px 30px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 30px;
+    margin: 0 auto;
 }
