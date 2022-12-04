@@ -47,4 +47,4 @@ Refer to this file under /docs for more specific information and other group pla
 - md5
 - requirejs
 
-**How to run: **npm run start
+**How to run**: npm run start
