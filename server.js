@@ -22,11 +22,7 @@ var HTTP_PORT = 8888;
 
 // Let the server listen to the port, if error exists, print the error
 app.listen(HTTP_PORT, () => {
-    if(error){
-        console.log("Woops! Something went wrong!", error)
-    }else{
-        console.log("Server running on port %PORT%".replace("%PORT%",HTTP_PORT))
-    }
+    console.log("Server running on port %PORT%".replace("%PORT%",HTTP_PORT))
 });
 
 // READ (HTTP method GET) at root endpoint /app/
