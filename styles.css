@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     background-image: url("background\ image.jpg");
     height: 100vh;
@@ -272,4 +273,48 @@ body{
 .register-button:hover,
 .register-button:focus{
     background-color: hsl(var(--primary-hsl),.4);
+=======
+html, body{
+    height: 100%;
+    font-size: 1.1cm;
+    background-color: #fafafa;
+}
+hr{
+    background-color: #94c5f9;
+}
+h1 {
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    color: rgb(78, 138, 195);
+  }
+.content{
+    margin: auto;
+    max-width: 600px;
+}
+
+.title{
+    font-size: 3cm;
+}
+
+.justify-center .column{
+    display: flex;
+    justify-content: center;
+}
+
+.is-family-secondary{
+    font-family: 'Shrikhand', cursive;
+    font-size: 6cm;
+    font-weight: lighter;
+}
+img {
+    height: 400px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(6, 0, 0, 0.16), 0 4px 8px rgba(0,0,0,0.23);
+    min-width: 300px;
+}
+
+img:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    transform: scale(1.05);
+>>>>>>> 03abc5573c1c6c51b5b311e963510184d9512a0a
 }
