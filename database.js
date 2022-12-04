@@ -4,10 +4,11 @@
 const Database = require('better-sqlite3');
 
 // Connect to a database or create one if it doesn't exist yet.
-const db = new Database('user.db');
+const database = new Database('user.db');
 
-// Is the database initialized or do we need to initialize it?
-const stmt = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' and name='userinfo';`);
+// Creates a new prepared Statement from the given SQL string.
+const stmt = database.prepare(`SELECT name FROM sqlite_master WHERE type='table' and name='userinfo';`);
+//Executes the prepared statement. When execution completes it returns an object that represents the first row retrieved by the query.
 let row = stmt.get();
 if (row === undefined) {
 // Echo information about what you are doing to the console.
@@ -18,7 +19,7 @@ if (row === undefined) {
 		INSERT INTO userinfo (user, pass, email, name, fortune_score) VALUES ('admin','aisudtqweoqwjnf7qy342oiu', 'admin@anything.com', 'admin', 0), ('test','123986qfaohnnc76y24r','test@anything.com', 'test', 0)
     `;
 // Execute SQL commands that we just wrote above.
-    db.exec(sqlInit);
+    database.exec(sqlInit);
 // Echo information about what we just did to the console.
     console.log('Your database has been initialized with a new table and three entries containing a username, email address, and password.');
 } else {
@@ -26,4 +27,4 @@ if (row === undefined) {
     console.log('Database exists.')
 }
 // Export db
-module.exports = db
+module.exports = database

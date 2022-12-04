@@ -2,7 +2,7 @@
 const express = require("express")
 const app = express()
 // Link to database.js
-var db = require("./database.js");
+var database = require("./database.js");
 
 // Require md5 MODULE
 var md5 = require("md5");
@@ -54,41 +54,41 @@ const info = stmt.run(data.user, data.pass, data.email, data.name, data.fortune_
 
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
 app.get("/app/users", (req, res) => {	
-	const stmt = db.prepare("SELECT * FROM userinfo").all();
+	const stmt = database.prepare("SELECT * FROM userinfo").all();
 	res.status(200).json(stmt);
 });
 
 // READ a single user (HTTP method GET) at endpoint /app/user/:id
 app.get("/app/user/:id", (req, res) => {	
-	const stmt = db.prepare("SELECT * FROM userinfo WHERE id = ?").get(req.params.id);
+	const stmt = database.prepare("SELECT * FROM userinfo WHERE id = ?").get(req.params.id);
 	res.status(200).json(stmt);
 });
 
 // UPDATE a single user (HTTP method PATCH) (the updated user is the current user that is logged in)
 app.patch("/app/update/user", (req, res) => {
 
-	const stmt = db.prepare("UPDATE userinfo SET user = COALESCE(?,user), email = COALESCE(?,email), pass = COALESCE(?,pass) WHERE user = ?").run(req.body.changeduser, req.body.email, md5(req.body.pass), req.body.user)
+	const stmt = database.prepare("UPDATE userinfo SET user = COALESCE(?,user), email = COALESCE(?,email), pass = COALESCE(?,pass) WHERE user = ?").run(req.body.changeduser, req.body.email, md5(req.body.pass), req.body.user)
 	res.status(200).json({"message":`1 record updated: User ${req.body.user} (200)`});
 
 });
 
 // DELETE a single user (HTTP method DELETE) (the deleted user is the current user that is logged in)
 app.delete("/app/delete/user", (req, res) => {
-	const stmt = db.prepare("DELETE FROM userinfo WHERE user = ?").run(req.body.user);
+	const stmt = database.prepare("DELETE FROM userinfo WHERE user = ?").run(req.body.user);
 	res.status(200).json({"message":"1 record deleted: ID 2 (200)"});
 });
 
 // UPDATE a single user's highest score (HTTP method PATCH) if the current score is higher than the highestScore in database (the updataed user is the current user that is logged in)
 app.patch("/app/recordscore/user", (req, res) =>  {
 
-	const stmt = db.prepare("UPDATE userinfo SET highest= COALESCE(?,highest) WHERE user = ?").run(req.body.highest, req.body.user)
+	const stmt = database.prepare("UPDATE userinfo SET highest= COALESCE(?,highest) WHERE user = ?").run(req.body.highest, req.body.user)
 	res.status(200).json({"message":`1 record updated: User ${req.body.user} (200)`});
 });
 
 // READ a single user (HTTP method GET) given the username and password.
 app.post("/app/login/user", (req, res) => {	
 
-	const stmt = db.prepare("SELECT * FROM userinfo WHERE user = ? AND pass = ?").get(req.body.user, md5(req.body.pass));
+	const stmt = database.prepare("SELECT * FROM userinfo WHERE user = ? AND pass = ?").get(req.body.user, md5(req.body.pass));
 	if (md5(req.body.pass).length == 0) {
 		res.status(404);
 	} else{
