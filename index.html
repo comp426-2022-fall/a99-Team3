@@ -12,7 +12,7 @@
         }
         .login-form h1 {
             text-align: center;
-            color: #4d4d4d;
+            color: #e8c8e5;
             font-size: 24px;
             padding: 20px 0 20px 0;
         }
@@ -27,7 +27,7 @@
         .login-form input[type="submit"] {
             width: 100%;
             padding: 15px;
-            background-color: #535b63;
+            background-color: #e8c8e5;
             border: 0;
             box-sizing: border-box;
             cursor: pointer;
@@ -41,106 +41,85 @@
 
 
 
-<h3 id="register">Instruction: Steps to play pinball game:</h3>
-<p>1: Register</p>
-<p>2: Log In</p>
-<p>3: Click On "Start New Game"</p>
+<h3 id="register">Instruction: How to get a lucky cookie?:</h3>
+<p>1: Register your account</p>
+<p>2: Log into your account</p>
+<p>3: Get your fortune cookie message</p>
 
 <h3>Features:</h3>
 <p>After login, you can logout, delete your account, modify your information, or start new game</p>
 
-
-<div class = "login-form">
-    <h1>Register Form</h1>
-    <form id="myForm">
-        <input type="username" id="myUserName" name="user" placeholder = "Username" value="">
-        <input type="myPass" id="myEmail" name="email" placeholder = "Eamil" value="">
-        <input type="myPass" id="pass" placeholder = "Password" name="pass" value="">
-        <input type="submit" value="Register Now!">
-    </form>
-</div>
-
-<div class = "login-form">
-    <h1 id="loginmessage">Login</h1>
-    <form id="loginForm">
-        <div id="credentials">
-            <input id="logUser" class="input is-small" type="username" placeholder="Username" id="user" name="user" value="">
-            <input id="logPass" class= "input is-small" type="myPass" placeholder="Password" id="pass" name="pass" value="">
-        </div>
-        <input class="button is-info" type="submit" value="Login" id="login">
-    </form>
-    
-    <p>
-
-    
-    </p>
-
-    <div>
-        <form id="deleteAcc">
-            <input class="button" type="submit" value="Delete Account">
-        </form> 
-    </div>
-
-    <p>
-
-    
-    </p>
-
-    <a href="model.html" target="_top" id="begin">
-        <button class="generalbutton button1">New Game!</button>
-
-    </a>
-    <p>
-
-
-    </p>
-    <div id="dataPlace">
-        <button class="generalbutton button1" type="submit" id="showData">
-            Check My Personal Information!
-        </button> 
-    </div>
-
-    <div>
-        <p id="profileData"></p>
-    </div>
-
-</div>
-
-<div class = "login-form" id=updateForm>
-    <h1 id="loginmessage">How would you like to change your account?</h1>
-    <form id="updateinfo">
-        <input name="changeduser" type="username" class="input is-small" placeholder="New Username" value="">
-        <input name="email" type="username" class="input is-small" placeholder="New Email" value="">
-        <input name="pass" type="username" class="input is-small" placeholder="New Password" value="">
-
-        <input class = "button is-info" type="submit" value="Update Info">
-    </form>
-</div>
-
-</body>
-</html>
-
-
-
-******
-    <div class = "full-screen-container">
-        <div class = "login-container">
-            <h1 class="login-title">Welcome</h1>
-            <form class = "form">
-                <div class="input-group success">
-                    <label for="username">Username</label>
-                    <input type="username" name="username" id="username">
-                    <span class="msg">Valid username</span>
-                </div>
-
-                <div class="input-group error">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password">
-                    <span class="msg">Incorrect password</span>
-                </div>
-
-                <button type="submit" class="login-bottom">Login</button>
-                <button type="submit" class="register-bottom">Login</button>
+<div class = "full-screen-container">
+    <div class = "container">
+        <h1 class="login-title">Get A Fortune Message Here!</h1>
+        <div class = "login-form">
+            <h1>Register Form</h1>
+            <form id="myForm">
+                <input type="username" id="myUserName" name="user" placeholder = "Username" value="">
+                <input type="myPass" id="myEmail" name="email" placeholder = "Eamil" value="">
+                <input type="myPass" id="pass" placeholder = "Password" name="pass" value="">
+                <input type="submit" value="Submit">
             </form>
         </div>
+        
+        <div class = "login-form">
+            <h1 id="loginmessage">Login</h1>
+            <form id="loginForm">
+                <div id="credentials">
+                    <input id="logUser" class="input is-small" type="username" placeholder="Username" id="user" name="user" value="">
+                    <input id="logPass" class= "input is-small" type="myPass" placeholder="Password" id="pass" name="pass" value="">
+                </div>
+                <input class="button is-info" type="submit" value="Login" id="login">
+            </form>
+            
+            <p>
+        
+            
+            </p>
+        
+            <div>
+                <form id="deleteAcc">
+                    <input class="button" type="submit" value="Delete Account">
+                </form> 
+            </div>
+        
+            <p>
+        
+            
+            </p>
+        
+            <a href="fortune.html" target="_top" id="begin">
+                <button class="generalbutton button1">New Game!</button>
+        
+            </a>
+            <p>
+        
+        
+            </p>
+            <div id="dataPlace">
+                <button class="generalbutton button1" type="submit" id="showData">
+                    Check My Personal Information!
+                </button> 
+            </div>
+        
+            <div>
+                <p id="profileData"></p>
+            </div>
+        
+        </div>
+        
+        <div class = "login-form" id=updateForm>
+            <h1 id="loginmessage">How would you like to change your account?</h1>
+            <form id="updateinfo">
+                <input name="changeduser" type="username" class="input is-small" placeholder="New Username" value="">
+                <input name="email" type="username" class="input is-small" placeholder="New Email" value="">
+                <input name="pass" type="username" class="input is-small" placeholder="New Password" value="">
+        
+                <input class = "button is-info" type="submit" value="Update Info">
+            </form>
+        </div>
+        
+        </body>
+        </html>
     </div>
+</div>
