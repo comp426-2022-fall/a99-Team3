@@ -35,16 +35,10 @@ app.get("/app/", (req, res, next) => {
 
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/user", (req, res, next) => {
-	var data = {
-		user: req.body.user,
-		email: req.body.email,
-		pass: req.body.pass ? md5(req.body.pass) : null,
-		name: req.body.name, 
-		fortune_score: req.body.fortune_score
-	}
-	const stmt = database.prepare('INSERT INTO userinfo (user, pass, email, name, fortune_score) VALUES (?, ?, ?, ?, 0)');
-const info = stmt.run(data.user, data.pass, data.email, data.name, data.fortune_score);
-	res.status(201).json({"message":info.changes+" record created: ID "+info.lastInsertRowid+" (201)"});
+
+	const stmt = db.prepare('INSERT INTO userinfo (user, pass, email) VALUES (?, ?, ?)').run(req.body.user, md5(req.body.pass), req.body.email);
+	res.status(201).json({"message": "1 record created: ID (201)"});
+
 })
 
 

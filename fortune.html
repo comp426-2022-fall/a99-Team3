@@ -6,37 +6,55 @@
 </head>
 <body>
         
-            <button onclick="doSomething()" style="background-color:#333333;color:#00FF00;border-radius:5px">click me!</button>
-        
-        <p id="test">Hello</p>
+    <img src="fortune-cookie.png" alt="Fortune Cookie">
 
-        <script>
-            function doSomething() {
-                //sentence_base stores all the fortune sentences
-                const sentence_base = [
-                'From now on your kindness will lead you to success.',
-                'For hate is never conquered by hate. Hate is conquered by love.',
-                'Every flower blooms in its own sweet time.',
-                'Good news will be brought to you by mail.',
-                'An alien of some sort will be appearing to you shortly.',
-                'You always bring others happiness.',
-                'Someone will invite you to a Karaoke party.',
-                'Congratulations! You are on your way.',
-                'All your hard work will soon pay off.',
-                'A lifetime of happiness lies ahead of you.',
-                'A pleasant surprise is waiting for you.',
-                'You desire recognition and you will find it.',
-                'You make people realize that there exist other beauties in the world.',
-                'You will be blessed with longevity.',
-                'You will be sharing great news with all the people you love.',
-                'Your love of music will be an important part of your life.'
+    <button onclick="doSomething()" style="background-color:#db2e84;color:#e8c8e5;border-radius:5px">Click me to get your fourtune cookie!</button>
+        
+    <p id="test">Hello</p>
+
+    <script>
+        function doSomething() {
+            //sentence_base stores all the fortune sentences
+            const sentence_base = [
+            'From now on your kindness will lead you to success.',
+            'For hate is never conquered by hate. Hate is conquered by love.',
+            'Every flower blooms in its own sweet time.',
+            'Good news will be brought to you by mail.',
+            'An alien of some sort will be appearing to you shortly.',
+            'You always bring others happiness.',
+            'Someone will invite you to a Karaoke party.',
+            'Congratulations! You are on your way.',
+            'All your hard work will soon pay off.',
+            'A lifetime of happiness lies ahead of you.',
+            'A pleasant surprise is waiting for you.',
+            'You desire recognition and you will find it.',
+            'You make people realize that there exist other beauties in the world.',
+            'You will be blessed with longevity.',
+            'You will be sharing great news with all the people you love.',
+            'Your love of music will be an important part of your life.'
             ]
-                // randomly pick one sentence from the sentence_base and return it
-                random_number = Math.floor(Math.random() * (16));
-                sentence =  sentence_base[random_number]
-                document.getElementById("test").innerHTML = sentence;
-                
+
+            // randomly pick one sentence from the sentence_base and return it
+            random_number = Math.floor(Math.random() * (16));
+            sentence =  sentence_base[random_number]
+            document.getElementById("test").innerHTML = sentence;
             }
         </script>
+
+
+    <button onclick="random()" style="background-color:#db2e84;color:#e8c8e5;border-radius:5px">Click me to see your fortune level today!</button>
+        
+    <p id="number"></p>
+
+    <script>
+        function random() {
+            // randomly generate a fortune level
+            document.getElementById("number").innerHTML = Math.floor(Math.random() * (10));
+        }
+    </script>
+
+    <button onclick="random()" style="background-color:#db2e84;color:#e8c8e5;border-radius:5px">Who is the lukiest person today?</button>
+     
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 window.addEventListener("load", function () {
     
-    var thisUser = null;
-    var loggedIn;
+    var isLogIn;
+    var current = null;
 
     // Hide and show elements based on login status
     function hideElements(){
@@ -32,19 +32,22 @@ window.addEventListener("load", function () {
     }
 
     // New User Creation after submit the form
-    function sendData( form ) {
-        const sendRequest = new XMLHttpRequest();
-        const signupInfo = new URLSearchParams(new FormData( form ));
-        // in case of error
-        sendRequest.addEventListener("error", function(event){
-            alert('Something went wrong. Please try again.');
-        });
-        // successful data submission
-        sendRequest.addEventListener("load", function(event){
-            alert('Your account was created!');
-        });
-        sendRequest.open("POST", "http://localhost:8888/app/new/user");
-        sendRequest.send( signupInfo );
+    function sendData() {
+        const XHR = new XMLHttpRequest();
+              FD = new URLSearchParams(new FormData( form ));
+
+        // Define what happens on successful data submission
+        XHR.addEventListener( 'load', function( event ) {
+            alert( 'Yeah! Data sent!' );
+        } );
+
+        // Define what happens in case of error
+        XHR.addEventListener('error', function( event ) {
+            alert( 'Oops! Something went wrong.' );
+        } );
+
+        XHR.open("POST", "http://localhost:8888/app/new/user");
+        XHR.send( FD );
     }
 
     // After submit the form, call sendData()
@@ -54,104 +57,96 @@ window.addEventListener("load", function () {
         sendData();
     });
 
-   // Login
-   function getUserdata( form ) {
+    // Login
+    function checkLog( form ) {      
     const sendRequest = new XMLHttpRequest();
     const userInfo = new URLSearchParams(new FormData( form ));
-    sendRequest.addEventListener("error", function(event){
-        alert('Accessing users unsuccessful! Please try again.');
-    });
 
     sendRequest.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            thisUser = JSON.parse(sendRequest.response);
-            if(loggedIn){
-                thisUser = null;
-                loggedIn = false;
+            current = JSON.parse(sendRequest.response);
+            if(isLogIn){
+                current = null;
+                isLogIn = false;
                 document.getElementById("login").value = "Login";
-                document.getElementById("greeting").innerHTML = thisUser;
-                // document.getElementById("loggedInUser").classList.add("hide-on-logout");
+
                 hideElements()
-                alert("Logging Out");
-            } else {
-                if(thisUser.name == null | thisUser.name == ""){
-                    document.getElementById("greeting").innerHTML = "Welcome to Fortune Cookie, " + thisUser.user;
-                } else {
-                    document.getElementById("greeting").innerHTML = "Welcome to Fortune Cookie, " + thisUser.name;
-                };
+                alert("Successfully logged out");
+            } else { 
                 document.getElementById("login").value = "Logout";
-                loggedIn = true;
-                // document.getElementById("loggedInUser").style.display = "block";
-                // document.getElementById("loggedInUser").classList.remove("hide-on-logout");
+                isLogIn = true;
+
                 showElements();
                 alert("Login successful!")
+                hideLogin();
             }
+        } else if ( this.status != 200 ) {
+            alert("Bad Credential! (If Login successful message pop up next, you are good to go!)")
         }
+       
     }
     sendRequest.open("POST", "http://localhost:8888/app/login/user");
     sendRequest.send( userInfo );
 };
 
 const selfUser = document.getElementById("loginForm");
-selfUser.addEventListener("submit", function(event){
-    event.preventDefault();
-    if(loggedIn){
-        alert("Logging Out");
-        // document.getElementById("loggedInUser").classList.add("hide-on-logout");
-        hideElements()
-        thisUser = null;
-        loggedIn = false;
-        document.getElementById("login").value = "Login";
-        document.getElementById("greeting").innerHTML = thisUser;
-        this.reset();
-    } else {
-        getUserdata(this);
-    }
-});
-
-    // Delete User
-    function deleteData( form ) {
-        var deletePassword = form.pass.value;
-        let deleteInfo = new URLSearchParams("");
-        deleteInfo.append('user', thisUser.user);
-        deleteInfo.append('pass', deletePassword);
-        const sendRequest = new XMLHttpRequest();
-        sendRequest.addEventListener("error", function(event){
-            alert('Deletion unsuccessful! Please try again.');
-        });
-        sendRequest.addEventListener("load", function(event){
-            alert('Your account was successfully deleted!');
-        });
-
-        sendRequest.open("DELETE", "http://localhost:8888/app/deleting/user");
-        sendRequest.send( deleteInfo );
-    }
-
-    const olduser = document.getElementById("delete");
-    olduser.addEventListener("submit", function(event){
+    selfUser.addEventListener("submit", function(event){
         event.preventDefault();
-        deleteData(this);
+        if(isLogIn){
+
+            alert("Logged Out");
+            hideElements()
+            current = null;
+            isLogIn = false;
+            document.getElementById("login").value = "Login";
+            this.reset();
+            showLogin();
+
+        } else {
+            checkLog(this);
+        }
     });
 
-    // Updating User
-    function updateData( form ) {
-        const sendRequest = new XMLHttpRequest();
-        var updateInfo = new URLSearchParams(new FormData( form ));
-        updateInfo.append('user', thisUser.user);
-        sendRequest.addEventListener("error", function(event){
-            alert('Update unsuccessful! Please try again.');
+    // Delete User
+    function deleteUser(form) {
+        const XHR = new XMLHttpRequest();
+        var FD = new URLSearchParams(new FormData( form ));
+        FD.append('user', current.user);
+
+        XHR.addEventListener("load", function(event){
+            alert('Account Deleted!');
         });
-        sendRequest.addEventListener("load", function(event){
-            // alert('Your username was changed!');
-        });
-        sendRequest.open("PATCH", "http://localhost:8888/app/updating/user");
-        sendRequest.send( updateInfo );
+
+        XHR.open("DELETE", "http://localhost:8888/app/delete/user");
+        XHR.send( FD );
+
     }
 
-    const updateUser = document.getElementById("changeName");
-    updateUser.addEventListener("submit", function(event){
+    const deleted = document.getElementById("deleteAcc");
+    deleted.addEventListener("submit", function(event) {    
         event.preventDefault();
-        updateData(this);
+        deleteUser(this);
+    });
+
+    // Updating User Info
+    function updateInfo( form ) {
+        const XHR = new XMLHttpRequest();
+        var FD = new URLSearchParams(new FormData( form ));
+
+        FD.append('user', current.user);
+
+        XHR.addEventListener("load", function(event){
+            alert('Info Updated!');
+        });
+
+        XHR.open("PATCH", "http://localhost:8888/app/update/user");
+        XHR.send( FD );
+    }
+
+    const newData = document.getElementById("updateinfo");
+    newData.addEventListener("submit", function(event){
+        event.preventDefault();
+        updateInfo(this);
     });
 
     // Show Profile
@@ -159,37 +154,12 @@ selfUser.addEventListener("submit", function(event){
     showData.addEventListener("click", function(event){
         event.preventDefault();
         if(loggedIn){
-            document.getElementById("profileData").innerHTML = `Username: ${thisUser.user}, 
-            Email: ${thisUser.email}, 
-            Name: ${thisUser.name},
-            Year: ${thisUser.year}`
+            document.getElementById("profileData").innerHTML = `Username: ${current.user}, 
+            Email: ${current.email}, 
+            Name: ${current.name}`
         } else {
             alert("You must log in to see profile!")
         }
-    });
-
-
-    // retrieve the highest score from database
-    function getLuckiest( form ) {
-        const sendRequest = new XMLHttpRequest();
-        sendRequest.addEventListener("error", function(event){
-            alert('retrieving score unsuccessful! Please try again.');
-        });
-
-        sendRequest.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // alert(sendRequest.responseText);
-                document.getElementById("showScore").innerHTML = sendRequest.responseText;
-            }
-        }
-        sendRequest.open("GET", "http://localhost:8888/app/user/highest");
-        sendRequest.send(); 
-    }
-    // when click "show luckiest" button, do getLuckiest()
-    const getScore = document.getElementById("highestScore");
-    getScore.addEventListener("click", function(event){
-        event.preventDefault();
-        getLuckiest(this)        
     });
 
 });    
