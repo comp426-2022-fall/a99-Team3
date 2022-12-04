@@ -42,7 +42,7 @@ app.post("/app/new/user", (req, res, next) => {
 		name: req.body.name, 
 		fortune_score: req.body.fortune_score
 	}
-	const stmt = db.prepare('INSERT INTO userinfo (user, pass, email, name, fortune_score) VALUES (?, ?, ?, ?, 0)');
+	const stmt = database.prepare('INSERT INTO userinfo (user, pass, email, name, fortune_score) VALUES (?, ?, ?, ?, 0)');
 const info = stmt.run(data.user, data.pass, data.email, data.name, data.fortune_score);
 	res.status(201).json({"message":info.changes+" record created: ID "+info.lastInsertRowid+" (201)"});
 })

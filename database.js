@@ -26,5 +26,5 @@ if (row === undefined) {
 // Since the database already exists, echo that to the console.
     console.log('Database exists.')
 }
-// Export db
+// Export database
 module.exports = database
