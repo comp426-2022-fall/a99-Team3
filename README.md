@@ -1,7 +1,7 @@
 # a99-Team3
 ## Fortune Cookie
 
-demo: // video_link
+demo: https://youtu.be/VavCHWkIDSE
 
 
 ## The Game
